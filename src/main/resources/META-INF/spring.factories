@@ -1,0 +1,6 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.lms.redis.RedisAutoConfiguration,\
+com.lms.exception.ExceptionAutoConfiguration,\
+com.lms.page.MybatisAutoConfiguration,\
+com.lms.swagger.SwaggerAutoConfiguration,\
+com.lms.result.ResultAutoConfiguration
