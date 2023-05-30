@@ -2,6 +2,8 @@
 通用工具库，通用全局异常，redis配置，统一返回，分页设置
 
 使用：
+```
+
 //开启swagger配置
 swagger:
   open: true
@@ -18,5 +20,6 @@ lms:
     enablePage: true   //开启分页
     enableRedis: true  //开启redis配置
     enableGlobalExceptionHandler: true //开启全局异常配置
+```
     
     
