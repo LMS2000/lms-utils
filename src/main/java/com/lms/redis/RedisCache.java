@@ -11,7 +11,11 @@ import org.springframework.data.redis.core.ValueOperations;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-//redis操作工具类
+/**
+ * redis操作工具类
+ *
+ * @author lms2000
+ */
 public class RedisCache {
 
     @Autowired
