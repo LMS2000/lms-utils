@@ -1,6 +1,7 @@
 package com.lms;
 
 import cn.hutool.json.JSONUtil;
+import com.lms.generate.LmsCodeGenerator;
 import com.lms.generate.generator.BasicCodeGenerator;
 import com.lms.generate.model.TableSchema;
 import com.lms.generate.parse.SqlParser;
@@ -50,5 +51,6 @@ public class UtilTestApp {
         }
         BasicCodeGenerator basicCodeGenerator=new BasicCodeGenerator();
         basicCodeGenerator.run("com.lms.sqlfather.generated",tableSchema,System.getProperty("user.dir")+"/generated");
+        LmsCodeGenerator.doGenerate("xxxx","sql","path");
     }
 }
