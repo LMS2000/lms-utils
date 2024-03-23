@@ -8,6 +8,7 @@ import com.lms.generate.model.TableSchema;
 import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -19,15 +20,25 @@ public class BasicCodeGenerator extends AbstractGenerator {
     @Override
     public void run(String packageName, Object... args) throws TemplateException, IOException {
        TableSchema tableSchema= (TableSchema) args[0];
+       String path = (String) args[1];
         for (TableSchema.Table table : tableSchema.getTableList()) {
-            generateOneTable(table,packageName);
+            generateOneTable(table,packageName,path);
         }
     }
 
 
-    private void generateOneTable(TableSchema.Table table,String packageName) throws TemplateException, IOException {
-       String baseOutput=System.getProperty("user.dir")+"/generated";
-       String baseInput=System.getProperty("user.dir")+"/src/main/resources/templates";
+    /**
+     *
+     * @param table
+     * @param packageName
+     * @param outputDir
+     * @throws TemplateException
+     * @throws IOException
+     */
+    private void generateOneTable(TableSchema.Table table,String packageName,String outputDir) throws TemplateException, IOException {
+       String baseOutput=outputDir;
+       String baseInput= "";
+
        String classTypeName = StringUtils.capitalize(StrUtil.toCamelCase(table.getTableName()));
        String className=StringUtils.uncapitalize(StrUtil.toCamelCase(table.getTableName()));
        String classComment = Optional.ofNullable(table.getTableComment()).orElse(className);
@@ -57,56 +68,56 @@ public class BasicCodeGenerator extends AbstractGenerator {
         // 生成文件
 
         // 生成VO
-        String inputPath=baseInput+"/vo/EntityVO.java.ftl";
+        String inputPath=baseInput+ File.separator+"templates/vo/EntityVO.java.ftl";
         String outputPath=baseOutput+"/vo/"+classTypeName+"VO.java";
         writeToTemplate(modelMap,inputPath,outputPath);
 
         // 生成DTO
-        inputPath=baseInput+"/dto/CreateEntityDTO.java.ftl";
+        inputPath=baseInput+File.separator+"templates/dto/CreateEntityDTO.java.ftl";
         outputPath=baseOutput+"/dto/Create"+classTypeName+"DTO.java";
         writeToTemplate(modelMap,inputPath,outputPath);
 
-        inputPath=baseInput+"/dto/UpdateEntityDTO.java.ftl";
+        inputPath=baseInput+File.separator+"templates/dto/UpdateEntityDTO.java.ftl";
         outputPath=baseOutput+"/dto/Update"+classTypeName+"DTO.java";
         writeToTemplate(modelMap,inputPath,outputPath);
 
-        inputPath=baseInput+"/dto/QueryEntityDTO.java.ftl";
+        inputPath=baseInput+File.separator+"templates/dto/QueryEntityDTO.java.ftl";
         outputPath=baseOutput+"/dto/Query"+classTypeName+"DTO.java";
         writeToTemplate(modelMap,inputPath,outputPath);
 
         // 生成Mapper
-        inputPath=baseInput+"/mapper/Mapper.java.ftl";
+        inputPath=baseInput+File.separator+"templates/mapper/Mapper.java.ftl";
         outputPath=baseOutput+"/mapper/"+classTypeName+"Mapper.java";
         writeToTemplate(modelMap,inputPath,outputPath);
         // 生成service层代码
-        inputPath=baseInput+"/service/IService.java.ftl";
+        inputPath=baseInput+File.separator+"templates/service/IService.java.ftl";
         outputPath=baseOutput+"/service/"+classTypeName+"Service.java";
         writeToTemplate(modelMap,inputPath,outputPath);
 
-        inputPath=baseInput+"/service/impl/ServiceImpl.java.ftl";
+        inputPath=baseInput+File.separator+"templates/service/impl/ServiceImpl.java.ftl";
         outputPath=baseOutput+"/service/impl/"+classTypeName+"ServiceImpl.java";
         writeToTemplate(modelMap,inputPath,outputPath);
 
         //生成controller层代码
 
-        inputPath=baseInput+"/controller/Controller.java.ftl";
+        inputPath=baseInput+File.separator+"templates/controller/Controller.java.ftl";
         outputPath=baseOutput+"/controller/"+classTypeName+"Controller.java";
         writeToTemplate(modelMap,inputPath,outputPath);
 
 
         // 生成实体类
-        inputPath=baseInput+"/entity/Entity.java.ftl";
+        inputPath=baseInput+File.separator+"templates/entity/Entity.java.ftl";
         outputPath=baseOutput+"/entity/"+classTypeName+".java";
         writeToTemplate(modelMap,inputPath,outputPath);
 
         // 生成常量类
-        inputPath=baseInput+"/constant/SqlConstant.java.ftl";
+        inputPath=baseInput+File.separator+"templates/constant/SqlConstant.java.ftl";
         outputPath=baseOutput+"/constant/SqlConstant.java";
         writeToTemplate(modelMap,inputPath,outputPath);
 
         // 生成工厂类
 
-        inputPath=baseInput+"/factory/EntityFactory.java.ftl";
+        inputPath=baseInput+File.separator+"templates/factory/EntityFactory.java.ftl";
         outputPath=baseOutput+"/factory/"+classTypeName+"Factory.java";
         writeToTemplate(modelMap,inputPath,outputPath);
     }

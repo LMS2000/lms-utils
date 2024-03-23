@@ -49,6 +49,6 @@ public class UtilTestApp {
             System.out.println(JSONUtil.toJsonStr(table));
         }
         BasicCodeGenerator basicCodeGenerator=new BasicCodeGenerator();
-        basicCodeGenerator.run("com.lms.sqlfather.generated",tableSchema);
+        basicCodeGenerator.run("com.lms.sqlfather.generated",tableSchema,System.getProperty("user.dir")+"/generated");
     }
 }

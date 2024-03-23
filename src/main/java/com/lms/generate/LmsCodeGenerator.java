@@ -14,12 +14,12 @@ import java.io.IOException;
 public class LmsCodeGenerator {
 
 
-    public static  void doGenerate(String packageName,String sql){
+    public static  void doGenerate(String packageName,String sql,String path){
         TableSchema tableSchema = SqlParser.buildFromSql(sql);
         BasicCodeGenerator basicCodeGenerator=new BasicCodeGenerator();
 
         try {
-            basicCodeGenerator.run(packageName,tableSchema);
+            basicCodeGenerator.run(packageName,tableSchema,path);
         } catch (TemplateException | IOException e) {
             throw new RuntimeException(e);
         }
