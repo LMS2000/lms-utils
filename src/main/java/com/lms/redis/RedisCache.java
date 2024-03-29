@@ -94,6 +94,17 @@ public class RedisCache {
     }
 
     /**
+     * 获得缓存的基本对象。
+     *
+     * @param key 缓存键值
+     * @return 缓存键值对应的数据
+     */
+    public <T> T getCacheObjectOnlyRedis(final String key) {
+        ValueOperations<String, T> operation = redisTemplate.opsForValue();
+        return operation.get(key);
+    }
+
+    /**
      * 删除单个对象
      *
      * @param key
